@@ -1,64 +1,64 @@
-class Persona
+class Vehiculo
 {
     id = 0;
-    nombre = "";
-    apellido = "";
-    edad = 0;
+    modelo = "";
+    anoFabricacion = "";
+    velMax = "";
 
-    constructor (p_id, p_nombre, p_apellido, p_edad)
+    constructor (p_id, p_modelo, p_anoFabricacion, p_velMax)
     {
         this.id = p_id;
-        this.nombre = p_nombre;
-        this.apellido = p_apellido;
-        this.edad = p_edad;
+        this.modelo = p_modelo;
+        this.anoFabricacion = p_anoFabricacion;
+        this.velMax = p_velMax;
     }
 
     toString()
     {
-        return "Id: " + this.id + ", Nombre: " + this.nombre + ", Apellido: " + this.apellido + ", Edad: " + this.edad;
+        return "Id: " + this.id + ", modelo: " + this.modelo + ", anoFabricacion: " + this.anoFabricacion + ", velMax: " + this.velMax;
     }
 }
 
-class Empleado extends Persona
+class Auto extends Vehiculo
 {
-    sueldo = 0;
-    vestan = 0;
+    cantidadPuertas = 0;
+    asientos = 0;
 
-    constructor (p_id, p_nombre, p_apellido, p_edad, p_sueldo, p_ventas)
+    constructor (p_id, p_modelo, p_anoFabricacion, p_velMax, p_cantidadPuertas, p_asientos)
     {
-        super(p_id, p_nombre, p_apellido, p_edad);
-        this.sueldo = p_sueldo;
-        this.ventas = p_ventas;
+        super(p_id, p_modelo, p_anoFabricacion, p_velMax);
+        this.cantidadPuertas = p_cantidadPuertas;
+        this.asientos = p_asientos;
     }
 
     toString()
     {
-        return super.toString() + ", sueldo: " + this.sueldo + ", ventas: " + this.ventas;
+        return super.toString() + ", cantidadPuertas: " + this.cantidadPuertas + ", asientos: " + this.asientos;
     }
 }
 
-class Cliente extends Persona
+class Camion extends Vehiculo
 {
-    compras = 0;
-    telefono = "";
+    carga = 0;
+    autonomia = "";
 
-    constructor (p_id, p_nombre, p_apellido, p_edad, p_compras, p_telefono)
+    constructor (p_id, p_modelo, p_anoFabricacion, p_velMax, p_carga, p_autonomia)
     {
-        super(p_id, p_nombre, p_apellido, p_edad);
-        this.compras = p_compras;
-        this.telefono = p_telefono;
+        super(p_id, p_modelo, p_anoFabricacion, p_velMax);
+        this.carga = p_carga;
+        this.autonomia = p_autonomia;
     }
 
 
     toString()
     {
-        return super.toString() + ", sueldo: " + this.compras + ", ventas: " + this.telefono;
+        return super.toString() + ", carga: " + this.carga + ", autonomia: " + this.autonomia;
     }
 }
 
-var columnasTabla = ["id", "nombre", "apellido", "edad", "sueldo", "ventas", "telefono", "compras"];
+var columnasTabla = ["id", "modelo", "anoFabricacion", "velMax", "cantidadPuertas", "asientos", "carga", "autonomia"];
 var cabecerasAdicionalesTabla = ["modificar", "eliminar"];
-var url = "http://localhost/Labo3-Servidor-pp/PersonasEmpleadosClientes.php";
+var url = "https://examenesutn.vercel.app/api/VehiculoAutoCamion";
 
 
 var listaObjetosParseados = [{"Error": "objeto Vacio"}];
@@ -113,7 +113,7 @@ btnEliminar.addEventListener("click", () =>
     let objeto = validarEntradaDatos();
     if (objeto != -1)
     {
-        apiEliminar(url, objeto);
+        apiEliminar(url, objeto.id);
     }
 });
 
@@ -143,28 +143,30 @@ function instanciarClases(strObjetos)
     {
         return instancia = objetosGenericos.map((e) => 
             {
-                if (e.hasOwnProperty("ventas"))
+                if (e.hasOwnProperty("cantidadPuertas"))
                 {
                     //{"id":1, "nombre":"Marcelo", "apellido":"Luque", "edad":45, "ventas":15000, "sueldo":2000}
-                    return new Empleado(e.id, e.nombre, e.apellido, e.edad, e.sueldo, e.ventas);
+                    //p_id, p_modelo, p_anoFabricacion, p_velMax, p_cantidadPuertas, p_asientos
+                    return new Auto(e.id, e.modelo, e.anoFabricacion, e.velMax, e.cantidadPuertas, e.asientos);
                 }
-                else if (e.hasOwnProperty("compras"))
+                else if (e.hasOwnProperty("carga"))
                 {
-                    return new Cliente(e.id, e.nombre, e.apellido, e.edad, e.compras, e.telefono);
+                    //p_id, p_modelo, p_anoFabricacion, p_velMax, p_carga, p_autonomia
+                    return new Camion(e.id, e.modelo, e.anoFabricacion, e.velMax, e.carga, e.autonomia);
                 }
             });
     }
     else
     {
         let e = objetosGenericos;
-        if (e.hasOwnProperty("ventas"))
+        if (e.hasOwnProperty("cantidadPuertas"))
             {
                 //{"id":1, "nombre":"Marcelo", "apellido":"Luque", "edad":45, "ventas":15000, "sueldo":2000}
-                return new Empleado(e.id, e.nombre, e.apellido, e.edad, e.sueldo, e.ventas);
+                return new Auto(e.id, e.modelo, e.anoFabricacion, e.velMax, e.cantidadPuertas, e.asientos);
             }
-            else if (e.hasOwnProperty("compras"))
+            else if (e.hasOwnProperty("carga"))
             {
-                return new Cliente(e.id, e.nombre, e.apellido, e.edad, e.compras, e.telefono);
+                return new Camion(e.id, e.modelo, e.anoFabricacion, e.velMax, e.carga, e.autonomia);
             }
     }
     
@@ -185,6 +187,7 @@ function consultarDatosServidor(url)
             {
                 
                 let datosStr = xhttp.response;
+                console.log(datosStr);
                 listaObjetosParseados = instanciarClases(datosStr);
                 actualizarTabla();
                 console.log("*listarDatos()->Se carga lista");
@@ -339,45 +342,45 @@ function validarEntradaDatos()
     let banderaOk = false;
     let nuevoObjeto;
     
-    if (txtEdad.value > 15)
+    if (txtEdad.value > 0)
     {
-        if(txtNombre.value != "" && txtApellido.value != "")
+        if(txtNombre.value != "" && txtApellido.value > 1985)
             {
                 if (selectTipo.value == 1)
                     {
-                        if (txtSueldo.value > 0 && txtVentas.value > 0)
+                        if (txtSueldo.value > 2 && txtVentas.value > 0)
                         {
-                            nuevoObjeto = {id:txtId.value, nombre:txtNombre.value, apellido:txtApellido.value, edad:txtEdad.value,
-                                 sueldo:txtSueldo.value, ventas:txtVentas.value}; 
+                            nuevoObjeto = {id:txtId.value, modelo:txtNombre.value, anoFabricacion:txtApellido.value, velMax:txtEdad.value,
+                                 cantidadPuertas:txtSueldo.value, asientos:txtVentas.value}; 
                             // nuevoObjeto = new Empleado(txtId.value, txtNombre.value, txtApellido.value, txtEdad.value, txtSueldo.value, txtVentas.value); 
                             
                             banderaOk = true;
                         }
                         else
                         {
-                            window.alert("Sueldo o Ventas inválidos");
+                            window.alert("cantidadPuertas o asientos inválidos, deben ser mayor a dos!!!");
                         }
                     }
                 else if (selectTipo.value == 2)
                 {
-                    if (txtCompras.value > 0 && txtTelefono.value != "")
+                    if (txtCompras.value > 0 && txtTelefono.value > 0)
                     {
-                        nuevoObjeto = {id:txtId.value, nombre:txtNombre.value, apellido:txtApellido.value, edad:txtEdad.value,
-                            compras:txtCompras.value, telefono:txtTelefono.value}; 
+                        nuevoObjeto = {id:txtId.value, modelo:txtNombre.value, anoFabricacion:txtApellido.value, velMax:txtEdad.value,
+                            carga:txtCompras.value, autonomia:txtTelefono.value}; 
                         // nuevoObjeto = new Cliente(txtId.value, txtNombre.value, txtApellido.value, txtEdad.value, txtCompras.value, txtTelefono.value); 
                         banderaOk = true;
                     }
                     else
                     {
-                        window.alert("Compras o Teléfono inválidos");
+                        window.alert("carga o autonomia inválidos, deben ser mayores a cero!!!");
                     }
                 }
             }
             else
             {
-                window.alert("Nombre y/o Apellido inválidos.");
+                window.alert("modelo y/o anoFabricacion inválidos: \nEl modelo no puede estarvacío.\nEl año de fabricacion debe ser mayor a 1985");
             }
-    } else {window.alert("La edad debe ser mayor a 15")}
+    } else {window.alert("La velMax debe ser mayor a 0")}
     
 
     if (banderaOk)
@@ -396,10 +399,12 @@ function dibujarAbm(idSeleccionado, accion, banderaEliminar = false)
     abmSubtitulo.innerHTML = accion;
     console.log(abmSubtitulo);
     let p = buscarPersonaPorId(idSeleccionado);
+    console.log("dato: ");
+    console.log(p);
 
     
 
-    if (p instanceof Persona)
+    if (p instanceof Vehiculo)
     {
         abmSubtitulo.value = "Modificar"
         btnAceptar.style.display = "none";
@@ -408,23 +413,23 @@ function dibujarAbm(idSeleccionado, accion, banderaEliminar = false)
         txtId.value = p.id;
         selectTipo.disabled = true;
         txtId.disabled = true;
-        txtNombre.value = p.nombre;
-        txtApellido.value = p.apellido;
-        txtEdad.value = p.edad;
+        txtNombre.value = p.modelo;
+        txtApellido.value = p.anoFabricacion;
+        txtEdad.value = p.velMax;
 
-        if (p instanceof Empleado)
+        if (p instanceof Auto)
         {
             selectTipo.value = 1;
-            txtSueldo.value = p.sueldo;
-            txtVentas.value = p.ventas;
+            txtSueldo.value = p.cantidadPuertas;
+            txtVentas.value = p.asientos;
             txtCompras.value = "";
             txtTelefono.value = "";
         }
-        else if (p instanceof Cliente)
+        else if (p instanceof Camion)
         {
             selectTipo.value = 2;
-            txtCompras.value = p.compras;
-            txtTelefono.value = p.telefono;
+            txtCompras.value = p.carga;
+            txtTelefono.value = p.autonomia;
             txtSueldo.value = "";
             txtVentas.value = "";
         }
@@ -435,7 +440,7 @@ function dibujarAbm(idSeleccionado, accion, banderaEliminar = false)
         selectTipo.value = 1;
         selectTipo.disabled = false;
         // txtId.value = generarIdUnica();
-        txtId.disabled = false;
+        txtId.disabled = true;
         btnAceptar.style.display = "inline-block";
         btnModificar.style.display = "none";
         btnEliminar.style.display = "none";
@@ -496,7 +501,41 @@ function actualizarFiltroAbm()
     }
 }
 
-function apiAlta(url,objeto)
+
+async function apiAlta(url,objeto)
+{
+    try
+    {
+        bloquearPantalla(true);
+        delete objeto.id;
+        console.log(objeto);
+        const respuesta = await fetch(url, {
+            method: "POST",
+            headers:{
+                "Content-Type": "Application/json"
+            },
+            body: JSON.stringify(objeto)
+            })
+
+        let json = await respuesta.json();
+        if (respuesta.status = 200)
+        {
+            objeto.id = json.id;
+            agregarAlista(objeto);
+        }
+    }
+    catch(error)
+    {
+        window.alert("Error Del servidor - Status: " + respuesta.status + "Error: " + error);
+    }
+    finally
+    {
+        bloquearPantalla(false)
+    }
+
+}
+
+function apiModificar(url, objeto)
 {
     bloquearPantalla(true);
     fetch(url, {
@@ -506,59 +545,36 @@ function apiAlta(url,objeto)
         },
         body: JSON.stringify(objeto)
     })
-    .then(response => response.json())
-    .then(json => {
-        objeto.id = json.id;
-        agregarAlista(objeto);
-    })
-    .catch((respuesta) => {window.alert("Error Del servidor - Status: " + respuesta.status)})
-    .then(() => bloquearPantalla(false));
-}
-
-async function apiModificar(url, objeto)
-{
-    let response;
-    try
-    {
-        bloquearPantalla(true);
-        response = await fetch(url,{
-            method: "POST",
-            headers: {
-                "Content-Type": "Application/json"
-            },
-            body: JSON.stringify(objeto)
-        });
-
-        let data = await response.json();
-
-        if (response.status == 200)
+    .then((respuesta) => 
         {
-            console.log("1-Response status: " + response.status);
-            console.log(data);
+            return new Promise ((e, f) =>
+            {
+                if (respuesta.status == 200)
+                {
+                    e(respuesta.status);
+                }
+                else
+                {
+                    f(respuesta.status);
+                }
+            })
+        })
+    .then(status => {
+        {
+            console.log("Api modificar!!!");
             let objetoPrevio = buscarPersonaPorId(objeto.id);
             let indice = listaObjetosParseados.indexOf(objetoPrevio);
             listaObjetosParseados.splice(indice, 1);
-            objeto.id = data.id;
             agregarAlista(objeto);
         }
-        else{
-            throw new Error("Error Del servidor - Status: " + resp);
-        }
-    }
-    catch (error)
-    {
-        window.alert("Error Del servidor - Status: " + response.status);
-    }
-    finally
-    {
-        bloquearPantalla(false);
-    }
+    })
+    .catch((error) => {window.alert("Error Del servidor - Status: " + error)})
+    .then(() => bloquearPantalla(false));
 }
 
-function apiEliminar(url, objeto)
+function apiEliminar(url, idObjeto)
 {
-    console.log("objeto a eliminar: ");
-    console.log(objeto);
+    objeto = {"id": `${idObjeto}`};
 
     bloquearPantalla(true);
     fetch(url,{
@@ -572,14 +588,12 @@ function apiEliminar(url, objeto)
         return new Promise ((e, f) =>{
             if (respuesta.status == 200)
             {
-                console.log("Status " + respuesta.status);
                 e(respuesta);
             }
             else
                 f(respuesta);
         });
     })
-    // .then((respuesta) => respuesta.json())
     .then( (respuesta) => {
         console.log(respuesta);
         let objetoPrevio = buscarPersonaPorId(objeto.id);
@@ -598,15 +612,6 @@ function agregarAlista(objeto)
     listaObjetosParseados.push(instancia);
     actualizarTabla();
     switchForms();
-}
-
-function aplicarEstilos()
-{
-    // formDatos.style.width = "50vw";
-    // formDatos.style.margin = "auto";
-
-    // formAbm.style.width = "50vw";
-    // formAbm.style.margin = "auto";
 }
 
 
