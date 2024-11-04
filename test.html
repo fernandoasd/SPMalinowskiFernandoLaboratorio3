@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="idBody">
+    
+</body>
+
+<script>
+
+    // columnasTabla.forEach((atributo) =>
+    //     {
+    //         let nuevaTh = document.createElement("th");
+    //         nuevaTh.setAttribute("id", `head-${atributo}`);
+    //         console.log(nuevaTh);
+            
+    //         // nuevaTh.setAttribute("value", `${atributo.value}`);
+    //         // nuevaTh.style.display = "table-header";
+    //         // nuevaTh.innerHTML = `${hacerMayusculaPrimerLetra(atributo.value)}`;
+    //         // tableHead.appendChild(nuevaTh);
+    //     })
+
+    function traerPersonas()
+    {
+    var xhttp = new XMLHttpRequest(); //Instancio el objeto
+    var arrayObjetos = "";
+        xhttp.onreadystatechange = function() 
+        {
+            if (xhttp.readyState == 4) 
+            {
+                if (xhttp.status == 200)
+                {
+                    //Acción a ejecutar cuando el estado es 200 ok y el readyState=4 (respuesta lista)
+                    arrayObjetos = xhttp.response;
+                }
+                else if(xhttp.status = 404)
+                {
+                    arrayObjetos =`[{"error": "ERROR 404: no se pudo traer lista de eprsonas"}]`;
+
+                }
+            }
+            
+        }; //Configúro manejador para cambio de estado
+        xhttp.open("GET", "http://localhost/Labo3-Servidor-pp/PersonasEmpleadosClientes.php"); //Inicializo la solicitud 
+        xhttp.setRequestHeader('Content-type', 'application/json'); 
+        xhttp.send(); //Envio la solicitud
+
+        return arrayObjetos;
+    }
+    let personas = traerPersonas();
+    console.log(personas);
+
+
+
+    async function resolveAfter2Seconds(x) {
+        await setTimeout(() => {
+            console.log("Cocinado!");
+            return x;
+            }, 2000);
+    }
+
+    async function f1() {
+    var x = await resolveAfter2Seconds(10);
+    }
+    f1();
+
+
+    function traerListaStr(url)
+{
+var xhttp = new XMLHttpRequest(); //Instancio el objeto
+var arrayObjetos = "";
+    xhttp.onreadystatechange = function()
+    {
+        if (xhttp.readyState == 4) 
+        {
+            if (xhttp.status == 200)
+            {
+                //Acción a ejecutar cuando el estado es 200 ok y el readyState=4 (respuesta lista)
+                arrayObjetos = xhttp.response;
+                console.log(arrayObjetos);
+            }
+            else if(xhttp.status = 404)
+            {
+                arrayObjetos =`[{"error": "ERROR 404: no se pudo traer lista de personas"}]`;
+            }
+        }
+        
+    }; //Configúro manejador para cambio de estado
+    xhttp.open("GET", url); //Inicializo la solicitud 
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(); //Envio la solicitud
+
+    console.log("aca traigo los datos...");
+    return arrayObjetos;
+}
+
+
+// traerListaStr(url);
+
+var columnasTabla = ["id", "nombre", "apellido", "edad", "sueldo", "ventas", "telefono", "ventas"];
+var cabecerasAdicionalesTabla = ["modificar", "eliminar"];
+
+columnasTabla = columnasTabla.concat(cabecerasAdicionalesTabla);
+console.log("columnas: " + columnasTabla);
+
+let body = document.getElementById("idBody");
+
+respuesta = "";
+
+if (respuesta > 0)
+{
+    console.log("respuesta Ok");
+}
+else
+{
+    console.log("respuesta :(");
+
+}
+
+let dato = {"nombre":"Marcelo","apellido":"Luque","edad":45,"ventas":15000,"sueldo":2000};
+console.log(dato);
+console.log(delete dato.id);
+console.log(dato);
+
+let str = `{"nombre":"Marcelo","apellido":"Luque","edad":45,"ventas":15000,"sueldo":2000}`;
+console.log("TIPO:" + typeof(dato));
+console.log("TIPO:" + typeof(str));
+
+// if (typeof(str) == "string")
+// {
+//     console.log("es un str!");
+// }
+
+// if (typeof(dato) == "object")
+// {
+//     console.log("es un obj!");
+// }
+
+function ejemploPromesaUno(a, b)
+    {
+        let promesa = new Promise(
+            (exito, fracaso)=>{ 
+                    let suma = a + b;
+                    exito(suma);
+                }
+            );
+
+        promesa.then((r)=>{
+            return new Promise((e,f) =>{
+                if (r > 20)
+                    e(r)
+                else
+                    f(r)
+            })
+        })
+        .then((r)=>{console.log("Resultado: " + r)}
+        ).catch(
+            (resultado)=>{console.log("El resultado es menor a 20")}
+        );
+    }
+
+ejemploPromesaUno(10,15);
+
+
+
+
+
+
+
+
+</script>
+</html>

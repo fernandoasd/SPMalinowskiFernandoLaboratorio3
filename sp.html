@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Segundo Parcial</title>
+    
+</head>
+
+
+<body id="idBody">
+    
+    <div class="container center">
+        <form name="formDatos" id="formDatos" class="center">
+            <h1>Form Lista</h1><br>
+            <br>
+            <table id="id_tabla_datos" class="table table-bordered table-hover center">
+                <tr id="tableHead">
+                        <!-- <th id="colId" value="id">ID</th>
+                        <th id="colNombre" value="nombre">Nombre</th>
+                        <th id="colApellido" value="apellido">Apellido</th>
+                        <th id="colEdad" value="edad">Edad</th>
+                        <th id="colSueldo" value="sueldo">Sueldo</th>
+                        <th id="colVentas" value="ventas">Ventas</th>
+                        <th id="colCompras" value="compras">Compras</th>
+                        <th id="colTelefono" value="telefono">Telefono</th> -->
+                </tr>
+    
+                <tbody id="tableBody">
+                    <!-- -------------------Filas Tabla---------------------------------- -->
+                </tbody>
+                
+            </table>
+    
+            <br>
+            <button id="btnAgregar" class="btn btn-primary btn-block">Agregar</button>
+        </form>
+        
+        <form name="formAgregar" id="formAbm" class="center">
+            <h1>Formulario ABM</h1>
+            <h2 id="abmSubtitulo"></h3>
+    
+            <div class="form-group">
+                <label for="selectTipo">Tipo: </label>
+                <select name="selectTipo" id="selectTipo" class="form-control">
+                    <option value="1">Empleado</option>
+                    <option value="2">Cliente</option>
+                </select>
+            </div>
+        
+            <div class="form-group">
+                <label for="txtId">Id:</label>
+                <input type="text" id="txtId" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="txtNombre">Nombre: </label>
+                <input type="text" id="txtNombre" class="form-control">
+            </div>
+                
+            <div class="form-group">
+                <label for="txtApellido">Apellido: </label>
+                <input type="text" id="txtApellido" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="txtEdad">Edad: </label>
+                <input type="text" id="txtEdad" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="txtSueldo" class="propEmpleado">Sueldo: </label>
+                <input type="text" id="txtSueldo" class="propEmpleado form-control"><br class="propEmpleado">
+            </div>
+            
+            <div class="form-group">
+                <label for="txtVentas" class="propEmpleado">Ventas: </label>
+                <input type="text" id="txtVentas" class="propEmpleado form-control"><br class="propEmpleado">
+            </div>
+                
+            <div class="form-group">
+                <label for="txtCompras" class="propCliente">Compras: </label>
+                <input type="text" id="txtCompras" class="propCliente form-control"><br class="propCliente">
+            </div>
+                
+            <div class="form-group">
+                <label for="txtTelefono" class="propCliente">Telefono: </label>
+                <input type="text" id="txtTelefono" class="propCliente form-control"><br class="propCliente">
+            </div>
+
+            <button id="btnAceptar" class="btn btn-primary btn-block">Aceptar</button>
+            <button id="btnModificar" class="btn btn-warning btn-block">Modificar</button>
+            <button id="btnEliminar" class="btn btn-danger btn-block">Eliminar</button>
+            <button id="btnCancelar" class="btn btn-primary btn-block">Cancelar</button>
+
+        </form>
+    </div>
+    <!-- <div id="spinner" jsname="FUxoWc" class="fXtulc" style="transition: transform 47s cubic-bezier(0.28, 0.44, 0.57, 1);
+     transform: translateZ(0px) rotate(402.124rad);"><img src="//www.google.com/logos/fnbx/spinner/fidget.png" alt="spinner" height="226" width="207" data-csiid="OxIpZ-eBBsPC5OUPzZKOqQ8_9" data-atf="1"></div> -->
+    <div id="spinner" style="display: flex;">
+        <div id="imgSpinner"></div>
+    </div>
+
+
+</body>
+<script src="./script.js"></script>
+</html>

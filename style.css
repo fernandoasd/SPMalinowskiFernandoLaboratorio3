@@ -1,0 +1,124 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --background-color: rgb(40,42,53);
+    --form-background-color: rgb(56,68,77);
+    --text-color: rgb(220,220,220);
+}
+
+.container
+{
+    /* position: relative; */
+    display:flex;
+    right: 50vw;
+    top: 50vh;
+    translate: 0vw 15vh;
+    width: 50vw;
+    height: 50vh;
+    /* margin: auto; */
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+body
+{
+    background-color: var(--background-color);
+    /* padding: 5vw; */
+}
+
+table 
+{
+    border-collapse: collapse;
+    
+}
+
+th, td
+{
+    border: solid;
+    border-collapse: collapse;
+    padding: 3px;
+}
+
+form
+{
+    background-color: white;
+    border-radius: 2vh;
+    padding: 1%;
+    text-align:center;
+}
+
+input[type=text]:focus
+{
+    border: 3px solid #273ae8;
+}
+
+#formAbm
+{
+    text-align:left;
+    width: 30vw;
+    padding: 2vw;
+}
+
+button
+{
+    width: 8vw;
+}
+
+#spinner
+{
+    position: absolute;
+    top: 0px;
+    border: 1px solid red;
+    background-color: rgba(196, 145, 93, 0.25);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 500px;
+}
+
+#imgSpinner
+{
+    height:226px;
+    width:207px;
+    background-image: url(//www.google.com/logos/fnbx/spinner/fidget.png);
+    /* background-image: url(https://w7.pngwing.com/pngs/560/655/png-transparent-utn-hd-logo.png); */
+    /* https://elcomercio.pe/resizer/v2/KA35MX3YBBCZVPMXOU5RCENPVI.jpg?auth=e93626d83b4af1418706ec8c3d9f1a529a0f7184ac5987eda6bf9f8c8070eb81&width=1200&height=810&quality=90&smart=true */
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    filter: drop-shadow(0px 7px 21px rgb(95, 210, 201));
+    animation: rotar 3s ease-in infinite;
+}
+
+#spinner:hover{
+    cursor: progress;
+}
+
+#imgSpinner:hover{
+    cursor: pointer;
+}
+
+@keyframes rotar{
+    from
+    {
+        transform: rotateZ(0deg);
+    }
+    to
+    {
+        transform: rotateZ(666deg);
+    }
+}
+
+
+
+
+
+
+
